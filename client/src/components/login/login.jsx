@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import {useNavigate} from 'react-router-dom'
 import {
   Container,
   ImgWrap,
@@ -8,9 +9,37 @@ import {
   Descr,
   InputWrap
 } from "./style";
-import TextField from '@mui/material/TextField';
 
 const Login = () => {
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+    .then(res => res.json())
+      .then(data => {
+        if(data.success){
+          navigate('/')
+          setEmail('')
+          setPassword('')
+        } else{
+          console.log(data.message);
+          navigate('/login');
+          return;
+        }
+      })
+  }
   return (
     <Container>
       <ImgWrap main={require("../../assets/images/main.png")}></ImgWrap>
@@ -23,9 +52,14 @@ const Login = () => {
           </Descr>
         </TextWrap>
         <InputWrap>
-        <TextField id="outlined-basic" label="Outlined" variant="filled" />
-        <TextField id="outlined-basic" label="Outlined" variant="filled" />
+          <div className="wrap">
+            <input onChange={(e) => setEmail (e.target.value)} type="text" placeholder="Email" />
+          </div>
+          <div className="wrap">
+            <input onChange={(e) => setPassword (e.target.value)} type="text" placeholder="Parol" />
+          </div>
         </InputWrap>
+        <button onClick={onSubmit}>Tizimga Kirish</button>
       </FormWrapper>
     </Container>
   );

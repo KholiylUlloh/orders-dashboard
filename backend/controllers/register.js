@@ -6,19 +6,18 @@ const bcrypt = require("bcrypt");
 
 
 const Register = (req, res) => {
-    const { name, email, password } = req.body;
-    if (!email || !password || !name) {
+    const { email, password } = req.body;
+    if ( !email || !password ) {
       return res.status(400).json({
         message: "Please fill all the fields",
       });
     }
-    user.findOne({ email }).then((savedUser) => {
+    User.findOne({ email }).then((savedUser) => {
       if (savedUser) {
         return res.status(400).json({ message: "User already exists" });
       }
       bcrypt.hash(password, 10).then((hash) => {
         const user = new User({
-          name,
           email,
           password: hash
         });
