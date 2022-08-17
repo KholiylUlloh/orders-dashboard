@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+}
+
+@font-face {
+    font-family: 'SF Medium';
+    src: url(./assets/fonts/sf-pro-display-cufonfonts/SFPRODISPLAYMEDIUM.OTF);
+}
+
+@font-face {
+    font-family: 'SF Light';
+    src: url(./assets/fonts/sf-pro-display-cufonfonts/SFPRODISPLAYREGULAR.OTF);
+}
+
