@@ -29,15 +29,8 @@ const Login = () => {
     })
     .then(res => res.json())
       .then(data => {
-        if(data.success){
-          navigate('/')
-          setEmail('')
-          setPassword('')
-        } else{
-          console.log(data.message);
-          navigate('/login');
-          return;
-        }
+        console.log(data.message);
+        navigate('/welcome')
       })
   }
   return (
@@ -53,10 +46,10 @@ const Login = () => {
         </TextWrap>
         <InputWrap>
           <div className="wrap">
-            <input onChange={(e) => setEmail (e.target.value)} type="text" placeholder="Email" />
+            <input onChange={(e) => setEmail (e.target.value)} value={email} type="text" placeholder="Email" />
           </div>
           <div className="wrap">
-            <input onChange={(e) => setPassword (e.target.value)} type="text" placeholder="Parol" />
+            <input onChange={(e) => setPassword (e.target.value)} value={password} type="text" placeholder="Parol" />
           </div>
         </InputWrap>
         <button onClick={onSubmit}>Tizimga Kirish</button>
